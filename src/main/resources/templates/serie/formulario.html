@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{base::head}"></head>
+    <body>
+        <div th:replace="~{base::logo}"></div>
+        <div class="container">
+            <div th:replace="~{base::titulo('Nova Série')}"></div>
+            
+            <div class="card mt-3">
+                <form th:object="${requisicaoNovaSerie}" class="card-body" action="/serie/novo" method="POST">
+                    <div class="mb-3">
+                        <label for="nomeSerie">Série</label>
+                        <input th:field="*{nomeSerie}" th:errorclass="is-invalid" class="form-control" placeholder="nome da série"/>
+                        <small>Insira o nome da serie.</small>
+                        <div class="invalid-feedback" th:errors="*{nomeSerie}">
+                            Erros nome da serie.
+                        </div>
+                    </div>
+                    <div class="mb-3">                  
+                        <label for="urlOndeAssistirSerie">Url onde assistir</label>
+                        <input th:field="*{urlOndeAssistirSerie}" th:errorclass="is-invalid" class="form-control" placeholder="Url onde assistir"/>
+                        <small>Insira a url de onde ver a serie.</small>
+                        <div class="invalid-feedback" th:errors="*{urlOndeAssistirSerie}">
+                            Erros url de onde assistir.
+                        </div>
+                    </div>
+                    <div class="mb-3">                  
+                        <label for="urlDaImagem">Url da imagem</label>
+                        <input th:field="*{urlDaImagem}" th:errorclass="is-invalid" class="form-control" placeholder="Url da imagem"/>
+                        <small>Cole a url de uma imagem da série.</small>
+                        <div class="invalid-feedback" th:errors="*{urlDaImagem}">
+                            Erros url de imagem da série.
+                        </div>
+                    </div>
+                    <div class="mb-3">                  
+                        <label for="descricao">Descrição</label>
+                        <textarea th:field="*{descricao}" class="form-control" placeholder="descrição da série"></textarea>
+                    </div>
+                    <button type="submit" class="btn my-2 my-sm-0 text-white" style="background-color: #A4C3A2;">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

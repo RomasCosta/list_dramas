@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head th:replace="~{base::head}"></head>
+    <body>
+        <div th:replace="~{base::logo}"></div>
+        <div class="container">
+            <div th:replace="~{base::titulo('Minhas Séries')}"></div>
+            
+            <nav class="navbar navbar-expand bg-light d-flex justify-content-between mb-3">
+                <div class="navbar-nav">
+                    <a th:classappend="${status} == 'null' ? 'active'" class="nav-item nav-link" href="/home">Todas</a>
+                    <a th:classappend="${status} == 'assistindo' ? 'active'" class="nav-item nav-link" href="/home/assistindo">Assistindo</a>
+                    <a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-item nav-link" href="/home/aguardando">Aguardando</a>
+                    <a th:classappend="${status} == 'entregue' ? 'active'" class="nav-item nav-link" href="/home/dropada">Dropada</a>
+                </div> 
+                <a href="/serie/formulario"><button class="btn my-2 my-sm-0" style="background-color: #A4C3A2;">Nova</button></a>
+            </nav>
+            
+            <div class="card mb-3" th:each="serie : ${series}">
+                <th:block th:switch="${serie.status.name()}">
+                    <div th:case="'ASSISTINDO'" class="card-header alert alert-success" th:text="${serie.nomeDaSerie}">Nome da série</div>
+                    <div th:case="'AGUARDANDO'" class="card-header alert alert-info" th:text="${serie.nomeDaSerie}">Nome da série</div>
+                    <div th:case="'DROPADA'" class="card-header alert alert-danger" th:text="${serie.nomeDaSerie}">Nome da série</div>
+                </th:block>
+                
+                <div class="card-body">
+                    <div class="row">  
+                        <div class="col-12 col-sm-8 mb-3">
+                            <div class="row">
+                                <div class="col-md-5">Numero de episódios: <span th:text="${serie.numeroEpisodios}">12</span></div>
+                                <div class="col-md-7">Previsão de lançamento: <span th:text="${#temporals.format(serie.previsaoLancamento, 'dd/MM/yyyy')}">01/12/2022</span></div>
+                            </div>
+
+                            <div>Série, Onde Assistir</div>
+                            <div><input class="form-control" th:value="${serie.urlOndeAssistir}" value="url onde assistir"/></div>
+
+                            <div>Descrição</div>
+                            <div>
+                                <textarea class="form-control" th:text="${serie.descricaoDaSerie}">descrição da série</textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-4">
+                            <div>
+                                <img class="img-thumbnail" th:src="${serie.urlImgDaSerie}" src=""/>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
